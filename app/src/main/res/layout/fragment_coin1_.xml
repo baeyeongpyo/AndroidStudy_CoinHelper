@@ -24,6 +24,11 @@
         app:layout_constraintEnd_toStartOf="@id/CoinSubList1"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintHorizontal_weight="2"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/item_data"
+        tools:itemCount="15"
+        android:background="#D9A098"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -34,7 +39,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/Middle_Guide"
-        app:layout_constraintHorizontal_weight="1"/>
+        app:layout_constraintHorizontal_weight="1"
+        tools:listitem="@layout/item_subdata"
+        tools:itemCount="15"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/CoinSubList2"
@@ -45,6 +53,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/CoinList2"
         app:layout_constraintHorizontal_weight="1"
+        tools:listitem="@layout/item_subdata"
+        tools:itemCount="15"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -57,6 +67,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintHorizontal_weight="2"
+        tools:listitem="@layout/item_data"
+        tools:itemCount="15"
+        android:background="#8DC3E8"
         />
 
 

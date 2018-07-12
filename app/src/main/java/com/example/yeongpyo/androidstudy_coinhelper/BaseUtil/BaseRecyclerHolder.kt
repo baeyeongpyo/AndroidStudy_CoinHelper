@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-abstract class RecyclerHolder<ITEM : Any>(layout: Int, parent: ViewGroup?) :
+abstract class BaseRecyclerHolder<ITEM : Any>(layout: Int, parent: ViewGroup?) :
         RecyclerView.ViewHolder(LayoutInflater.from(parent?.context).inflate(layout, parent, false)) {
 
     fun onBindVIewHolder(item: Any?) = try {
