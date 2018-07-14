@@ -3,15 +3,15 @@ package com.example.yeongpyo.androidstudy_coinhelper.Adapter
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import com.example.yeongpyo.androidstudy_coinhelper.Coin1_Fragment
-import com.example.yeongpyo.androidstudy_coinhelper.testFragment
+import com.example.yeongpyo.androidstudy_coinhelper.Coin1Fragment
+import com.example.yeongpyo.androidstudy_coinhelper.TestFragment
 
 class CustomPagerAdater(fm : FragmentManager) : FragmentStatePagerAdapter(fm) {
 
-    val fraglist = arrayOf(
-            Coin1_Fragment()
-            , testFragment()
+    private val fraglist = arrayOf(
+            Coin1Fragment()
+            , TestFragment()
     )
     override fun getItem(position: Int): Fragment = fraglist[position]
-    override fun getCount(): Int = 2
+    override fun getCount(): Int = fraglist.size
 }
