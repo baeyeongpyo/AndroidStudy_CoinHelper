@@ -1,11 +1,7 @@
 package com.example.yeongpyo.androidstudy_coinhelper
 
-import android.annotation.SuppressLint
-import android.app.PendingIntent.getActivity
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v4.app.FragmentActivity
+import android.support.v7.app.AppCompatActivity
 import com.example.yeongpyo.androidstudy_coinhelper.Adapter.CustomPagerAdater
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,9 +11,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.setTitle("ssss")
+        supportActionBar?.title = "ssss"
 
-        fragmentlayout.adapter = CustomPagerAdater(supportFragmentManager)
+        vpContent.adapter = CustomPagerAdater(supportFragmentManager)
 
 /*
         thread {
