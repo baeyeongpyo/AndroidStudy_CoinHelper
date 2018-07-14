@@ -3,7 +3,7 @@ package com.example.coinapi
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class TradesData(
+data class TredesData(
     @SerializedName( "errorCode") var errorCode : String,
     @SerializedName( "timestamp") var timestamp : String,
     @SerializedName( "completeOrders") var completeOrders : List<innerData>,
