@@ -7,6 +7,12 @@ import retrofit2.http.Query
 interface APIinterface {
 
     @GET("/trades")
-    fun getTrades(): Call<String>
+    fun getTrades(): Call<TradesData>
+
+    @GET( "/orderbook")
+    fun getOrderBook() : Call<OrderBookData>
+
+    @GET( "/ticker")
+    fun getTicker() : Call<TickerData>
 
 }
