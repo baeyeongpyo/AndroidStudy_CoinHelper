@@ -37,7 +37,11 @@ class Coin1Fragment : Fragment() {
             }
 
         }
+
+
+
     }
+
 
     fun getTestAdpater1(listview: RecyclerView) = object : BaseRecyclerAdapter<TestDB>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
