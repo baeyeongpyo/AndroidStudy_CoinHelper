@@ -12,6 +12,7 @@ class CustomPagerAdater(fm : FragmentManager) : FragmentStatePagerAdapter(fm) {
             Coin1Fragment()
             , TestFragment()
     )
+
     override fun getItem(position: Int): Fragment = fraglist[position]
     override fun getCount(): Int = fraglist.size
 }

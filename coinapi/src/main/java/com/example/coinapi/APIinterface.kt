@@ -17,13 +17,13 @@ interface APIinterface {
                 .build()
     }
 
-    @GET("/trades")
-    fun getTrades(): Observable<TredesData>
+    @GET("/trades?currency={coin}")
+    fun getTrades(coin : String): Observable<TredesData>
 
-    @GET("/orderbook")
-    fun getOrderBook(): Observable<OrderBookData>
+    @GET("/orderbook?currency={coin}")
+    fun getOrderBook(coin : String): Observable<OrderBookData>
 
-    @GET("/ticker")
-    fun getTicker(): Observable<TickerData>
+    @GET("/ticker?currency={coin}")
+    fun getTicker(coin : String): Observable<TickerData>
 
 }
