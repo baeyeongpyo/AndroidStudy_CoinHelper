@@ -1,6 +1,5 @@
 package com.example.yeongpyo.androidstudy_coinhelper
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -9,9 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.coinapi.*
 import com.example.yeongpyo.androidstudy_coinhelper.BaseUtil.BaseRecyclerAdapter
 import com.example.yeongpyo.androidstudy_coinhelper.BaseUtil.BaseRecyclerHolder
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_coin1.*
+import kotlinx.android.synthetic.main.include_dataview.*
 
 class Coin1Fragment : Fragment() {
 
@@ -35,13 +38,25 @@ class Coin1Fragment : Fragment() {
                         TestDB("Test7", "Test8")
                 )
             }
-
         }
-
-
-
     }
+    private fun getOrderBook() = APIinterface.retrofit.create(APIinterface::class.java)
+            .getOrderBook(CoinDB.BTC.name)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::getOrderBookData, ::getFail)
 
+    private fun getTrades() = APIinterface.retrofit.create(APIinterface::class.java)
+            .getTrades(CoinDB.BTC.name)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::getTredesData, ::getFail)
+
+    private fun getTicker() = APIinterface.retrofit.create(APIinterface::class.java)
+            .getTicker(CoinDB.BTC.name)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::getTickerData, ::getFail)
 
     fun getTestAdpater1(listview: RecyclerView) = object : BaseRecyclerAdapter<TestDB>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -53,4 +68,13 @@ class Coin1Fragment : Fragment() {
                 }
     }
 
+    fun getFail( t : Throwable ){}
+    fun getTredesData(data : TredesData) {
+        data.completeOrders.forEach { println(it) }
+    }
+    fun getOrderBookData(data : OrderBookData){
+        data.ask.forEach { println(it) }
+    }
+    fun getTickerData(data : TickerData){
+    }
 }

@@ -26,16 +26,8 @@ class MainActivity : AppCompatActivity() {
 
         vpContent.adapter = CustomPagerAdater(supportFragmentManager)
 
-        APIinterface.retrofit.create(APIinterface::class.java)
-                .getTrades(CoinDB.BTC.name)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::getTredesData, ::getFail)
-
 
     }
 }
-fun getFail( t : Throwable ){}
-fun getTredesData(data : TredesData) = data.completeOrders.forEach { println(it) }
 
 

@@ -3,4 +3,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="CurrentPrice">현재가</string>
+    <string name="PreviousDay">전일가</string>
+    <string name="DayBefore">전일대비</string>
+    <string name="HighPrice">고가</string>
+    <string name="LowPrice">저가</string>
+    <string name="Volume">거래량</string>
 </resources>
