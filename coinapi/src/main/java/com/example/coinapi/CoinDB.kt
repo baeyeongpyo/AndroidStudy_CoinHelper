@@ -1,6 +1,6 @@
 package com.example.coinapi
 
-enum class CoinDB(coinName : String) {
+enum class CoinDB(val coinName : String) {
     BTC("btc"),
     BCH("bch"),
     ETH("eth"),

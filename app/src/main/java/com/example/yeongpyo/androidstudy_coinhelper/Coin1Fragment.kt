@@ -12,15 +12,13 @@ import android.widget.TextView
 import com.example.coinapi.*
 import com.example.yeongpyo.androidstudy_coinhelper.BaseUtil.BaseRecyclerAdapter
 import com.example.yeongpyo.androidstudy_coinhelper.BaseUtil.BaseRecyclerHolder
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_coin1.*
 
 class Coin1Fragment : Fragment() {
 
-    val APIParsingName = CoinDB.BTC.name
+    val APIParsingName = CoinDB.BTC.coinName
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_coin1, container, false)
@@ -42,30 +40,35 @@ class Coin1Fragment : Fragment() {
                         TestDB("Test7", "Test8")
                 )
             }
-        }
-       Observable.create<APIinterface> { APIinterface.retrofit.create(APIinterface::class.java)  }//just(APIinterface.retrofit.create(APIinterface::class.java))
-               .flatMap(retrofitFlatMap)
-               .subscribeOn(Schedulers.newThread())
-               .subscribeOn(AndroidSchedulers.mainThread())
-               .subscribe(::retrofitSubject, ::getFail, ::retrofitComplete)
 
+        }
+        getOrderBook()
+        getTrades()
+        getTicker()
 
     }
-    val retrofitFlatMap = Function<APIinterface, Observable<*>>{
-            Observable.just(it.getTrades(APIParsingName),
-                    it.getOrderBook(CoinDB.BTC.name),
-                    it.getTicker(CoinDB.BTC.name)) }
 
-    private fun retrofitSubject( data : Any){
-        when(data){
-            is OrderBookData -> ::getOrderBookData
-            is TredesData -> ::getTredesData
-            is TickerData -> ::getTickerData
-        }
-    }
+    private fun getOrderBook() = APIinterface.retrofit.create(APIinterface::class.java)
+            .getOrderBook(APIParsingName)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::getOrderBookData, ::getFail)
 
-    private fun retrofitComplete(){
-        Log.i("retrofit", "Complete!")
+    private fun getTrades() = APIinterface.retrofit.create(APIinterface::class.java)
+            .getTrades(APIParsingName)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::getTredesData, ::getFail)
+
+    private fun getTicker() = APIinterface.retrofit.create(APIinterface::class.java)
+            .getTicker(APIParsingName)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::getTickerData, ::getFail)
+
+
+    private fun retrofitComplete() {
+        Log.i("RetroFitTest", "Complete")
     }
 
     fun getTestAdpater1(listview: RecyclerView) = object : BaseRecyclerAdapter<TestDB>() {
@@ -78,38 +81,51 @@ class Coin1Fragment : Fragment() {
                 }
     }
 
-    fun getFail( t : Throwable ){}
-    fun getTredesData(data : TredesData) {
-//        data.completeOrders.forEach { println(it) }
-       "TredesData".Log()
-    }
-    fun getOrderBookData(data : OrderBookData){
-//        data.ask.forEach { println(it) }
-        "Orderbook".Log()
-    }
-    fun getTickerData(data : TickerData){
-        "Ticker".Log()
+    fun getFail(t: Throwable) {
+        "ERR Print".LogPrint()
     }
 
-    fun String.Log() : Int = Log.i("Coin1Fagment", this)
+    fun getTredesData(data: TredesData) {
+        data.completeOrders[0]
+        "Tredes OK".LogPrint()
+    }
+
+    fun getOrderBookData(data: OrderBookData) {
+        data.ask.forEach { }
+        data.bid.forEach { }
+        "OrderBook OK".LogPrint()
+    }
+
+    fun getTickerData(data: TickerData) {
+        data.currency
+        "Ticker OK".LogPrint()
+    }
+
+    private fun String.LogPrint() = Log.i("RetroFitTest", this)
+
 }
 
 /*
-    private fun getOrderBook() = APIinterface.retrofit.create(APIinterface::class.java)
-            .getOrderBook(CoinDB.BTC.name)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::getOrderBookData, ::getFail)
+        Observable.just(APIinterface.retrofit.create(APIinterface::class.java))
+                .flatMap(retrofitFlatMap)
+                .subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(::retrofitSubject, ::getFail, ::retrofitComplete)
 
-    private fun getTrades() = APIinterface.retrofit.create(APIinterface::class.java)
-            .getTrades(CoinDB.BTC.name)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::getTredesData, ::getFail)
 
-    private fun getTicker() = APIinterface.retrofit.create(APIinterface::class.java)
-            .getTicker(CoinDB.BTC.name)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::getTickerData, ::getFail)
-*/
+val retrofitFlatMap = Function<APIinterface, Observable<*>> {
+    Observable.just(it.getTrades(APIParsingName),
+            it.getOrderBook(APIParsingName),
+            it.getTicker(APIParsingName))
+}
+
+private fun<T> retrofitSubject(data: T) {
+    when (data) {
+        is OrderBookData -> ::getOrderBookData
+        is TredesData -> ::getTredesData
+        is TickerData -> ::getTickerData
+        else -> {
+            Log.i("RetroFitTest", "Not Check")
+        }
+    }
+}*/

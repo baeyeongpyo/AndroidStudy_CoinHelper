@@ -1,14 +1,13 @@
 package com.example.coinapi
 
 import io.reactivex.Observable
-import io.reactivex.ObservableOnSubscribe
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
-interface APIinterface : ObservableOnSubscribe<Any> {
+interface APIinterface {
 
     companion object {
         val retrofit = Retrofit.Builder()
@@ -18,13 +17,14 @@ interface APIinterface : ObservableOnSubscribe<Any> {
                 .build()
     }
 
-    @GET("/trades?currency={coin}")
-    fun getTrades(coin : String): Observable<TredesData>
+    @GET("/trades")
+    fun getTrades(@Query("currency") coin : String): Observable<TredesData>
 
-    @GET("/orderbook?currency={coin}")
-    fun getOrderBook(coin : String): Observable<OrderBookData>
 
-    @GET("/ticker?currency={coin}")
-    fun getTicker(coin : String): Observable<TickerData>
+    @GET("/orderbook")//?currency={coin}")
+    fun getOrderBook(@Query("currency") coin : String ) : Observable<OrderBookData>
+
+    @GET("/ticker")//?currency={coin}")
+    fun getTicker(@Query("currency") coin : String ) : Observable<TickerData>
 
 }
