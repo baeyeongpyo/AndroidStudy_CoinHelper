@@ -4,15 +4,12 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.example.coinapi.*
-import com.example.yeongpyo.androidstudy_coinhelper.BaseUtil.BaseRecyclerAdapter
-import com.example.yeongpyo.androidstudy_coinhelper.BaseUtil.BaseRecyclerHolder
+import com.example.yeongpyo.androidstudy_coinhelper.Adapter.CoinDataAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_coin1.*
@@ -21,39 +18,10 @@ import kotlinx.android.synthetic.main.include_dataview.*
 class Coin1Fragment : Fragment() {
 
     val DecimalSupport = APIDecimalSupport()
-
-    val BidAdapter = object : BaseRecyclerAdapter<BidData>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-                object : BaseRecyclerHolder<BidData>(R.layout.item_data, rv_coin_list_bid) {
-                    override fun onViewCreate(item: BidData?): Unit = with(itemView) {
-                        findViewById<TextView>(R.id.Data1).text = with(DecimalSupport){item?.price?.comma() }
-                        findViewById<TextView>(R.id.Data2).text = item?.qty
-                    }
-                }
-    }
-
-
-    val AskAdapter = object : BaseRecyclerAdapter<AskData>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-                object : BaseRecyclerHolder<AskData>(R.layout.item_data, rv_coin_list_ask) {
-                    override fun onViewCreate(item: AskData?): Unit = with(itemView) {
-                        findViewById<TextView>(R.id.Data1).text = item?.qty
-                        findViewById<TextView>(R.id.Data2).text = with(DecimalSupport){item?.price?.comma()}
-                    }
-                }
-    }
-
-    val TredesCompleteOrdersAdapter = object : BaseRecyclerAdapter<TredesCompleteOrders>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-                object : BaseRecyclerHolder<TredesCompleteOrders>(R.layout.item_subdata, rv_coin_list_ordersbook) {
-                    override fun onViewCreate(item: TredesCompleteOrders?): Unit = with(itemView) {
-                        findViewById<TextView>(R.id.Data1).text = with(DecimalSupport){item?.price?.comma()}
-                        findViewById<TextView>(R.id.Data2).text = item?.qty
-                    }
-                }
-    }
-
-
+    val AdapterSupport = CoinDataAdapter()
+    val BidAdapter = AdapterSupport.BidAdapterMaker(rv_coin_list_bid)
+    val AskAdapter = AdapterSupport.AskAdapterMaker(rv_coin_list_ask)
+    val TredesCompleteOrdersAdapter = AdapterSupport.TredesAdapterMaker(rv_coin_list_ordersbook)
     val APIParsingName = CoinDB.BTC.coinName
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -93,11 +61,6 @@ class Coin1Fragment : Fragment() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::getTickerData, ::getFail)
-
-
-    private fun retrofitComplete() {
-        Log.i("RetroFitTest", "Complete")
-    }
 
     fun getFail(t: Throwable) {
         "ERR Print".LogPrint()
