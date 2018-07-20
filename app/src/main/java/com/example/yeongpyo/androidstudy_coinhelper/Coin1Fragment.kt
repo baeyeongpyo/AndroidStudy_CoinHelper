@@ -1,5 +1,6 @@
 package com.example.yeongpyo.androidstudy_coinhelper
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -15,8 +16,43 @@ import com.example.yeongpyo.androidstudy_coinhelper.BaseUtil.BaseRecyclerHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_coin1.*
+import kotlinx.android.synthetic.main.include_dataview.*
 
 class Coin1Fragment : Fragment() {
+
+    val DecimalSupport = APIDecimalSupport()
+
+    val BidAdapter = object : BaseRecyclerAdapter<BidData>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+                object : BaseRecyclerHolder<BidData>(R.layout.item_data, rv_coin_list_bid) {
+                    override fun onViewCreate(item: BidData?): Unit = with(itemView) {
+                        findViewById<TextView>(R.id.Data1).text = with(DecimalSupport){item?.price?.comma() }
+                        findViewById<TextView>(R.id.Data2).text = item?.qty
+                    }
+                }
+    }
+
+
+    val AskAdapter = object : BaseRecyclerAdapter<AskData>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+                object : BaseRecyclerHolder<AskData>(R.layout.item_data, rv_coin_list_ask) {
+                    override fun onViewCreate(item: AskData?): Unit = with(itemView) {
+                        findViewById<TextView>(R.id.Data1).text = item?.qty
+                        findViewById<TextView>(R.id.Data2).text = with(DecimalSupport){item?.price?.comma()}
+                    }
+                }
+    }
+
+    val TredesCompleteOrdersAdapter = object : BaseRecyclerAdapter<TredesCompleteOrders>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+                object : BaseRecyclerHolder<TredesCompleteOrders>(R.layout.item_subdata, rv_coin_list_ordersbook) {
+                    override fun onViewCreate(item: TredesCompleteOrders?): Unit = with(itemView) {
+                        findViewById<TextView>(R.id.Data1).text = with(DecimalSupport){item?.price?.comma()}
+                        findViewById<TextView>(R.id.Data2).text = item?.qty
+                    }
+                }
+    }
+
 
     val APIParsingName = CoinDB.BTC.coinName
 
@@ -31,17 +67,9 @@ class Coin1Fragment : Fragment() {
             setDisplayHomeAsUpEnabled(true)
         }
 
-        rv_coin_list.run {
-            adapter = getTestAdpater1(this).apply {
-                data = arrayListOf(
-                        TestDB("Test1", "Test2"),
-                        TestDB("Test3", "Test4"),
-                        TestDB("Test5", "Test6"),
-                        TestDB("Test7", "Test8")
-                )
-            }
-
-        }
+        rv_coin_list_ask.run { adapter = AskAdapter }
+        rv_coin_list_bid.run { adapter = BidAdapter }
+        rv_coin_list_ordersbook.run { adapter = TredesCompleteOrdersAdapter }
         getOrderBook()
         getTrades()
         getTicker()
@@ -71,39 +99,42 @@ class Coin1Fragment : Fragment() {
         Log.i("RetroFitTest", "Complete")
     }
 
-    fun getTestAdpater1(listview: RecyclerView) = object : BaseRecyclerAdapter<TestDB>() {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-                object : BaseRecyclerHolder<TestDB>(R.layout.item_data, listview) {
-                    override fun onViewCreate(item: TestDB?): Unit = with(itemView) {
-                        findViewById<TextView>(R.id.Data1).text = item?.Data1
-                        findViewById<TextView>(R.id.Data2).text = item?.Data2
-                    }
-                }
-    }
-
     fun getFail(t: Throwable) {
         "ERR Print".LogPrint()
     }
 
     fun getTredesData(data: TredesData) {
-        data.completeOrders[0]
+        TredesCompleteOrdersAdapter.addData(*data.completeOrders.toTypedArray())
         "Tredes OK".LogPrint()
     }
 
     fun getOrderBookData(data: OrderBookData) {
-        data.ask.forEach { }
-        data.bid.forEach { }
+        AskAdapter.addData(*data.ask.toTypedArray())
+        BidAdapter.addData(*data.bid.toTypedArray())
         "OrderBook OK".LogPrint()
     }
 
+    @SuppressLint("SetTextI18n")
     fun getTickerData(data: TickerData) {
-        data.currency
+        data.run{
+            val TickerBoo = 0 <= last.toLong() - first.toLong()
+            CurrentPrince.text = with(DecimalSupport){last.comma()}
+            PreviousDay.text = with(DecimalSupport){first.comma()}
+            DayBefore.text = """
+                |${with(DecimalSupport){ (last.toLong() - first.toLong()).comma()}}
+                |${with(DecimalSupport){ ((last.toFloat() / first.toFloat())).decimalPoint2()}}%
+                """.trimMargin()
+            HighPrice.text = with(DecimalSupport){high.comma()}
+            LowPrice.text = with(DecimalSupport){low.comma()}
+            Volume.text = with(DecimalSupport){volume.decimalPoint0()}
+        }
         "Ticker OK".LogPrint()
     }
 
     private fun String.LogPrint() = Log.i("RetroFitTest", this)
-
 }
+
+
 
 /*
         Observable.just(APIinterface.retrofit.create(APIinterface::class.java))

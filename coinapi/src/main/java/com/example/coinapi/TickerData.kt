@@ -1,6 +1,8 @@
 package com.example.coinapi
 
-data class TickerData(
+import android.graphics.Color
+
+data class TickerData (
     val result: String,
     val volume: String,
     val last: String,
