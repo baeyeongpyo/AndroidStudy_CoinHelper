@@ -14,26 +14,9 @@ import java.util.regex.Pattern
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
 
-    @Test
-    fun testCal(){
-        val testAnumber = 88844F
-        val testBnumber = 4123F
-
-        val result = testAnumber / testBnumber
-        println(DecimalFormat(".##").format(result))
-
-
-        Pattern.compile("^\\d")
-        val testprint = Pattern.matches("^\\d", result.toString())
-
-
-        println(DecimalFormat("#,###").format("1578157531".toInt()))
-        println("551848713".comma())
+        (1..10).forEach(System.out::println)
 
     }
-    fun String.comma() = DecimalFormat("#,###").format(this.toInt())
 
 }
