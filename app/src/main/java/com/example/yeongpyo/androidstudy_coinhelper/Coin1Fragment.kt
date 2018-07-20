@@ -11,15 +11,17 @@ import android.view.ViewGroup
 import com.example.coinapi.*
 import com.example.yeongpyo.androidstudy_coinhelper.Adapter.CoinDataAdapter
 import com.example.yeongpyo.androidstudy_coinhelper.RxComm.APICallRX
+import io.reactivex.internal.operators.observable.ObservableInterval
 import kotlinx.android.synthetic.main.fragment_coin1.*
 import kotlinx.android.synthetic.main.include_dataview.*
+import java.util.concurrent.TimeUnit
 
 class Coin1Fragment : Fragment() {
 
     val DecimalSupport = APIDecimalSupport()
     val AdapterSupport = CoinDataAdapter()
     val ObservableSupport = APICallRX(CoinDB.BTC.coinName)
-    val BidAdapter  by lazy { AdapterSupport.BidAdapterMaker(rv_coin_list_bid) }
+    val BidAdapter by lazy { AdapterSupport.BidAdapterMaker(rv_coin_list_bid) }
     val AskAdapter by lazy { AdapterSupport.AskAdapterMaker(rv_coin_list_ask) }
     val TredesCompleteOrdersAdapter by lazy { AdapterSupport.TredesAdapterMaker(rv_coin_list_ordersbook) }
 
@@ -37,11 +39,17 @@ class Coin1Fragment : Fragment() {
         rv_coin_list_ask.run { adapter = AskAdapter }
         rv_coin_list_bid.run { adapter = BidAdapter }
         rv_coin_list_ordersbook.run { adapter = TredesCompleteOrdersAdapter }
-        getOrderBook()
-        getTrades()
-        getTicker()
+
+        RxIntervable.subscribe {
+            getOrderBook()
+            getTrades()
+            getTicker()
+        }
 
     }
+
+    val RxIntervable = ObservableInterval.interval(2, 3, TimeUnit.SECONDS)
+
 
     private fun getOrderBook() = ObservableSupport.OrderBookObservable.subscribe(::getOrderBookData, ::getFail)
 
@@ -66,17 +74,17 @@ class Coin1Fragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     fun getTickerData(data: TickerData) {
-        data.run{
+        data.run {
             val TickerBoo = 0 <= last.toLong() - first.toLong()
-            CurrentPrince.text = with(DecimalSupport){last.comma()}
-            PreviousDay.text = with(DecimalSupport){first.comma()}
+            CurrentPrince.text = with(DecimalSupport) { last.comma() }
+            PreviousDay.text = with(DecimalSupport) { first.comma() }
             DayBefore.text = """
-                |${with(DecimalSupport){ (last.toLong() - first.toLong()).comma()}}
-                |${with(DecimalSupport){ ((last.toFloat() / first.toFloat())).decimalPoint2()}}%
+                |${with(DecimalSupport) { (last.toLong() - first.toLong()).comma() }}
+                |${with(DecimalSupport) { ((last.toFloat() / first.toFloat())).decimalPoint2() }}%
                 """.trimMargin()
-            HighPrice.text = with(DecimalSupport){high.comma()}
-            LowPrice.text = with(DecimalSupport){low.comma()}
-            Volume.text = with(DecimalSupport){volume.decimalPoint0()}
+            HighPrice.text = with(DecimalSupport) { high.comma() }
+            LowPrice.text = with(DecimalSupport) { low.comma() }
+            Volume.text = with(DecimalSupport) { volume.decimalPoint0() }
         }
         "Ticker OK".LogPrint()
     }
