@@ -11,20 +11,20 @@ interface APIinterface {
 
     companion object {
         val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.coinone.co.kr")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
+        .baseUrl("https://api.coinone.co.kr")
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
     }
 
     @GET("/trades")
-    fun getTrades(@Query("currency") coin : String): Observable<TredesData>
+    fun getTrades(@Query("currency") coin: String): Observable<TredesData>
 
 
-    @GET("/orderbook")//?currency={coin}")
-    fun getOrderBook(@Query("currency") coin : String ) : Observable<OrderBookData>
+    @GET("/orderbook")
+    fun getOrderBook(@Query("currency") coin: String): Observable<OrderBookData>
 
-    @GET("/ticker")//?currency={coin}")
-    fun getTicker(@Query("currency") coin : String ) : Observable<TickerData>
+    @GET("/ticker")
+    fun getTicker(@Query("currency") coin: String): Observable<TickerData>
 
 }

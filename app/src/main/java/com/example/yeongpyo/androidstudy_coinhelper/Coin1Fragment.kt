@@ -24,6 +24,8 @@ class Coin1Fragment : Fragment() {
     val BidAdapter by lazy { AdapterSupport.BidAdapterMaker(rv_coin_list_bid) }
     val AskAdapter by lazy { AdapterSupport.AskAdapterMaker(rv_coin_list_ask) }
     val TredesCompleteOrdersAdapter by lazy { AdapterSupport.TredesAdapterMaker(rv_coin_list_ordersbook) }
+//    val TredesCompleteOrdersAdapter
+//        by lazy { AdapterSupport.HighOrderAdapter(rv_coin_list_ordersbook) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_coin1, container, false)
