@@ -1,7 +1,6 @@
 package com.example.yeongpyo.androidstudy_coinhelper.Adapter
 
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.coinapi.APIDecimalSupport
@@ -42,32 +41,4 @@ class CoinDataAdapter : APIDecimalSupport() {
                     }
                 }
     }
-
-    /*private fun HighOrderAdapter(listview : RecyclerView){
-        object : BaseRecyclerAdapter<TredesCompleteOrders>() {
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-                    object : BaseRecyclerHolder<TredesCompleteOrders>(R.layout.item_subdata, listview) {
-                        override fun onViewCreate(item: TredesCompleteOrders?): Unit = with(itemView) {
-                            findViewById<TextView>(R.id.Data1).text = item?.price?.comma()
-                            findViewById<TextView>(R.id.Data2).text = item?.qty
-                        }
-                    }
-        }
-    }*/
-    fun HighOrderAdapter(listview: RecyclerView) =
-            listTest(TredesCompleteOrdersView(listview))
-
-    fun <T : Any> listTest(ViewSetting: BaseRecyclerHolder<T>) =
-            object : BaseRecyclerAdapter<T>() {
-                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-                        : RecyclerView.ViewHolder = ViewSetting
-            }
-
-    fun TredesCompleteOrdersView(listview: RecyclerView) =
-            object : BaseRecyclerHolder<TredesCompleteOrders>(R.layout.item_subdata, listview) {
-                override fun onViewCreate(item: TredesCompleteOrders?): Unit = with(itemView) {
-                    findViewById<TextView>(R.id.Data1).text = item?.price?.comma()
-                    findViewById<TextView>(R.id.Data2).text = item?.qty
-                }
-            }
 }

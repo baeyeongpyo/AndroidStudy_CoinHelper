@@ -14,6 +14,7 @@ open class APIDecimalSupport{
     fun String.decimalPoint0() = this.toDouble().toInt().toString()
     fun Float.decimalPoint0() = this.toDouble().toInt().toString()
     fun Long.decimalPoint0() = this.toDouble().toInt().toString()
-
+    fun testStringHighOrderFuntion(Test : Any)
+            = DecimalFormat("#,###").format(("$Test").toInt()).toString()
 
 }

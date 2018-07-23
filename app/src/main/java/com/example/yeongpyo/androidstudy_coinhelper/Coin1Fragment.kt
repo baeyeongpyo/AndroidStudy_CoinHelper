@@ -14,6 +14,7 @@ import com.example.yeongpyo.androidstudy_coinhelper.RxComm.APICallRX
 import io.reactivex.internal.operators.observable.ObservableInterval
 import kotlinx.android.synthetic.main.fragment_coin1.*
 import kotlinx.android.synthetic.main.include_dataview.*
+import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
 class Coin1Fragment : Fragment() {
@@ -24,8 +25,6 @@ class Coin1Fragment : Fragment() {
     val BidAdapter by lazy { AdapterSupport.BidAdapterMaker(rv_coin_list_bid) }
     val AskAdapter by lazy { AdapterSupport.AskAdapterMaker(rv_coin_list_ask) }
     val TredesCompleteOrdersAdapter by lazy { AdapterSupport.TredesAdapterMaker(rv_coin_list_ordersbook) }
-//    val TredesCompleteOrdersAdapter
-//        by lazy { AdapterSupport.HighOrderAdapter(rv_coin_list_ordersbook) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_coin1, container, false)
@@ -78,7 +77,9 @@ class Coin1Fragment : Fragment() {
     fun getTickerData(data: TickerData) {
         data.run {
             val TickerBoo = 0 <= last.toLong() - first.toLong()
-            CurrentPrince.text = with(DecimalSupport) { last.comma() }
+            CurrentPrince.text =
+                    StringHighOrder(first, DecimalSupport::testStringHighOrderFuntion)
+                    //with(DecimalSupport) { last.comma() }
             PreviousDay.text = with(DecimalSupport) { first.comma() }
             DayBefore.text = """
                 |${with(DecimalSupport) { (last.toLong() - first.toLong()).comma() }}
@@ -90,6 +91,9 @@ class Coin1Fragment : Fragment() {
         }
         "Ticker OK".LogPrint()
     }
-
     private fun String.LogPrint() = Log.i("RetroFitTest", this)
+    private fun StringHighOrder(string : Any, body : (Any) -> String) = body(string)
+
+
+
 }
