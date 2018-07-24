@@ -14,7 +14,6 @@ import com.example.yeongpyo.androidstudy_coinhelper.RxComm.APICallRX
 import io.reactivex.internal.operators.observable.ObservableInterval
 import kotlinx.android.synthetic.main.fragment_coin1.*
 import kotlinx.android.synthetic.main.include_dataview.*
-import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
 class Coin1Fragment : Fragment() {
@@ -51,7 +50,6 @@ class Coin1Fragment : Fragment() {
 
     val RxIntervable = ObservableInterval.interval(2, 3, TimeUnit.SECONDS)
 
-
     private fun getOrderBook() = ObservableSupport.OrderBookObservable.subscribe(::getOrderBookData, ::getFail)
 
     private fun getTrades() = ObservableSupport.TredesObsevable.subscribe(::getTredesData, ::getFail)
@@ -78,8 +76,8 @@ class Coin1Fragment : Fragment() {
         data.run {
             val TickerBoo = 0 <= last.toLong() - first.toLong()
             CurrentPrince.text =
-                    StringHighOrder(first, DecimalSupport::testStringHighOrderFuntion)
-                    //with(DecimalSupport) { last.comma() }
+                    StringHighOrder(first, DecimalSupport::HighOrderComma)
+            //with(DecimalSupport) { last.comma() }
             PreviousDay.text = with(DecimalSupport) { first.comma() }
             DayBefore.text = """
                 |${with(DecimalSupport) { (last.toLong() - first.toLong()).comma() }}
@@ -91,9 +89,9 @@ class Coin1Fragment : Fragment() {
         }
         "Ticker OK".LogPrint()
     }
-    private fun String.LogPrint() = Log.i("RetroFitTest", this)
-    private fun StringHighOrder(string : Any, body : (Any) -> String) = body(string)
 
+    private fun String.LogPrint() = Log.i("RetroFitTest", this)
+    private fun StringHighOrder(string: Any, body: (Any) -> String) = body(string)
 
 
 }
