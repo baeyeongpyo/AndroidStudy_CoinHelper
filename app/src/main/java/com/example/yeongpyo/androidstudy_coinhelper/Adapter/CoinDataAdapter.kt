@@ -16,8 +16,8 @@ class CoinDataAdapter : APIDecimalSupport() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
                 object : BaseRecyclerHolder<BidData>(R.layout.item_data, listview) {
                     override fun onViewCreate(item: BidData?): Unit = with(itemView) {
-                        findViewById<TextView>(R.id.Data1).text = item?.price?.comma()
-                        findViewById<TextView>(R.id.Data2).text = item?.qty
+                        findViewById<TextView>(R.id.Data1).text = StringHighOrder("1231231", ::HighOrderComma)//item?.price?.comma()
+                        findViewById<TextView>(R.id.Data2).text = StringHighOrder("43277", ::HighOrderComma)//item?.qty
                     }
                 }
     }
