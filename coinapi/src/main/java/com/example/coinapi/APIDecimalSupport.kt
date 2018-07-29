@@ -17,8 +17,8 @@ open class APIDecimalSupport {
 
 
     fun StringHighOrder(string: Any, body: (Any) -> String) = body(string)
-    fun HighOrderComma(deci: Any) = DecimalFormat("#,###").format(("$deci").toInt()).toString()
-    fun HighOrderDicima2(deci: Any) = DecimalFormat(".##").format("$deci".toFloat()).toString()
+    fun HighOrderComma(deci: Any) = DecimalFormat("#,###").format("$deci".toLong()).toString()
+    fun HighOrderDicima2(deci: Any) = DecimalFormat("#.##").format(deci as Long).toString()
     fun HighOrderDicima0(deci: Any) = "$deci".toFloat().toInt()
 
 }
