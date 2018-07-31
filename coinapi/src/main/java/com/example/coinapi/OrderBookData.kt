@@ -11,7 +11,9 @@ data class OrderBookData (
 data class AskData(
         val price: String,
         val qty: String
-)
+) : APIDecimalSupport(){
+    fun getprice() = StringHighOrder(price, ::HighOrderComma)
+}
 
 data class BidData(
         val price: String,
