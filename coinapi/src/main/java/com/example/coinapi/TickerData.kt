@@ -1,7 +1,5 @@
 package com.example.coinapi
 
-import android.graphics.Color
-
 data class TickerData (
     val result: String,
     val volume: String,
@@ -17,4 +15,23 @@ data class TickerData (
     val yesterday_volume: String,
     val yesterday_high: String,
     val first: String
-)
+) : APIDecimalSupport(){
+
+    val TickerBoo by lazy { 0 <= last.toLong() - first.toLong() }
+
+    fun getCurrentPrinceValue() = StringHighOrder(first, ::HighOrderComma)
+
+    fun getPreviousDayValue() = first.comma()
+
+    fun getDayBeforeValue() = """
+                |${ (last.toLong() - first.toLong()).comma()}
+                |${((last.toFloat() / first.toFloat())).decimalPoint2()}%
+                """.trimMargin()
+
+    fun getHighPriceValue() = high.comma()
+
+    fun getLowPriceValue() = low.comma()
+
+    fun getVolumeValue() = volume.decimalPoint0()
+
+}

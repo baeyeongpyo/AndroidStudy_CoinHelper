@@ -14,4 +14,7 @@ data class TredesCompleteOrders(
     @SerializedName( "timestamp") var timestamp : String,
     @SerializedName( "price") var price : String,
     @SerializedName( "qty") var qty : String
-)
+) : APIDecimalSupport(){
+    fun getprice() = StringHighOrder(price, ::HighOrderComma)
+    //StringHighOrder(item?.price!!, ::HighOrderComma)
+}
