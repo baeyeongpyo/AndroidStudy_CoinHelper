@@ -18,4 +18,6 @@ data class AskData(
 data class BidData(
         val price: String,
         val qty: String
-)
+): APIDecimalSupport(){
+    fun getprice() = StringHighOrder(price, ::HighOrderComma)
+}

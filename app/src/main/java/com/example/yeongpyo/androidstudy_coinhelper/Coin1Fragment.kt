@@ -18,9 +18,9 @@ class Coin1Fragment : Fragment(), CoinContract.View {
 
     override lateinit var presenter: CoinContract.Presenter
     val AdapterSupport = CoinDataAdapter()
-    val BidAdapter by lazy { AdapterSupport.BidAdapterMaker(rv_coin_list_bid) }
-    val AskAdapter by lazy { AdapterSupport.AskAdapterMaker(rv_coin_list_ask) }
-    val TredesCompleteOrdersAdapter by lazy { AdapterSupport.TredesAdapterMaker(rv_coin_list_ordersbook) }
+    val BidAdapter by lazy { AdapterSupport.BidAdapterMaker() }
+    val AskAdapter by lazy { AdapterSupport.AskAdapterMaker() }
+    val TredesCompleteOrdersAdapter by lazy { AdapterSupport.TredesAdapterMaker() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_coin1, container, false)

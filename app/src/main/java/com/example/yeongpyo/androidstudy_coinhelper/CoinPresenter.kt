@@ -1,6 +1,5 @@
 package com.example.yeongpyo.androidstudy_coinhelper
 
-import android.util.Log
 import com.example.coinapi.CoinDB
 import com.example.coinapi.OrderBookData
 import com.example.coinapi.TickerData
@@ -11,10 +10,10 @@ import java.util.concurrent.TimeUnit
 
 class CoinPresenter(val view :CoinContract.View) : CoinContract.Presenter {
 
-    val ObservableSupport = APICallRX(CoinDB.BTC.coinName)
+    private val observableSupport = APICallRX(CoinDB.BTC.coinName)
 
     override fun start() {
-        RxIntervable.subscribe {
+        rxInterval.subscribe {
             getOrderBook()
             getTrades()
             getTicker()
@@ -23,14 +22,21 @@ class CoinPresenter(val view :CoinContract.View) : CoinContract.Presenter {
 
 
 
-    val RxIntervable = ObservableInterval.interval(2, 3, TimeUnit.SECONDS)
+    private val rxInterval = ObservableInterval.interval(2, 3, TimeUnit.SECONDS)
 
-    private fun getOrderBook() = ObservableSupport.OrderBookObservable.subscribe(::getOrderBookData, ::getFail)
+    private fun getOrderBook() = observableSupport.orderBookObservable.subscribe(getOrderBookData, getFail)
 
-    private fun getTrades() = ObservableSupport.TredesObsevable.subscribe(::getTredesData, ::getFail)
+    private fun getTrades() = observableSupport.tradesObservable.subscribe(getTredesData, getFail)
 
-    private fun getTicker() = ObservableSupport.TickerObservable.subscribe(::getTickerData, ::getFail)
+    private fun getTicker() = observableSupport.tickerObservable.subscribe(getTickerData, getFail)
 
+
+    private val getFail : (Throwable) -> Unit ={}
+    private val getTredesData : (TredesData) -> Unit = {view.setTredes(it.completeOrders.toTypedArray()) }
+    private val getOrderBookData : (OrderBookData) -> Unit = { view.run { setAsk(it.ask.toTypedArray()); setBid(it.bid.toTypedArray()) }}
+    private val getTickerData : (TickerData) -> Unit = { view.setTicker(it) }
+
+    /*
     fun getFail(t: Throwable) {
         "ERR Print".LogPrint()
     }
@@ -48,7 +54,9 @@ class CoinPresenter(val view :CoinContract.View) : CoinContract.Presenter {
         view.setTicker(data)
         "Ticker OK".LogPrint()
     }
-
     private fun String.LogPrint() = Log.i("RetroFitTest", this)
+    */
+
+
 
 }

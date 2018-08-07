@@ -11,20 +11,20 @@ import com.example.yeongpyo.androidstudy_coinhelper.BaseUtil.BaseRecyclerAdapter
 import com.example.yeongpyo.androidstudy_coinhelper.BaseUtil.BaseRecyclerHolder
 import com.example.yeongpyo.androidstudy_coinhelper.R
 
-class CoinDataAdapter : APIDecimalSupport() {
-    fun BidAdapterMaker(listview: RecyclerView) = object : BaseRecyclerAdapter<BidData>() {
+class CoinDataAdapter  {
+    fun BidAdapterMaker() = object : BaseRecyclerAdapter<BidData>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-                object : BaseRecyclerHolder<BidData>(R.layout.item_data, listview) {
+                object : BaseRecyclerHolder<BidData>(R.layout.item_data, parent) {
                     override fun onViewCreate(item: BidData?): Unit = with(itemView) {
-                        findViewById<TextView>(R.id.Data1).text = StringHighOrder(item?.price!!, ::HighOrderComma)
+                        findViewById<TextView>(R.id.Data1).text = item?.getprice()
                         findViewById<TextView>(R.id.Data2).text = item?.qty
                     }
                 }
     }
 
-    fun AskAdapterMaker(listview: RecyclerView) = object : BaseRecyclerAdapter<AskData>() {
+    fun AskAdapterMaker() = object : BaseRecyclerAdapter<AskData>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-                object : BaseRecyclerHolder<AskData>(R.layout.item_data, listview) {
+                object : BaseRecyclerHolder<AskData>(R.layout.item_data, parent) {
                     override fun onViewCreate(item: AskData?): Unit = with(itemView) {
                         findViewById<TextView>(R.id.Data1).text = item?.getprice()
                         findViewById<TextView>(R.id.Data2).text = item?.qty
@@ -32,9 +32,9 @@ class CoinDataAdapter : APIDecimalSupport() {
                 }
     }
 
-    fun TredesAdapterMaker(listview: RecyclerView) = object : BaseRecyclerAdapter<TredesCompleteOrders>() {
+    fun TredesAdapterMaker() = object : BaseRecyclerAdapter<TredesCompleteOrders>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-                object : BaseRecyclerHolder<TredesCompleteOrders>(R.layout.item_subdata, listview) {
+                object : BaseRecyclerHolder<TredesCompleteOrders>(R.layout.item_subdata, parent) {
                     override fun onViewCreate(item: TredesCompleteOrders?): Unit = with(itemView) {
                         findViewById<TextView>(R.id.Data1).text = item?.getprice()
                         findViewById<TextView>(R.id.Data2).text = item?.qty
