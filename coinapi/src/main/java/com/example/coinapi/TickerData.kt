@@ -15,11 +15,11 @@ data class TickerData (
     val yesterday_volume: String,
     val yesterday_high: String,
     val first: String
-) : APIDecimalSupport(){
+){
 
     val TickerBoo by lazy { 0 <= last.toLong() - first.toLong() }
 
-    fun getCurrentPrinceValue() = StringHighOrder(first, ::HighOrderComma)
+    fun getCurrentPrinceValue() = first.comma()
 
     fun getPreviousDayValue() = first.comma()
 

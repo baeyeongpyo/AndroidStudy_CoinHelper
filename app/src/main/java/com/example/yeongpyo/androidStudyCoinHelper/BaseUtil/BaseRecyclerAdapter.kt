@@ -1,4 +1,4 @@
-package com.example.yeongpyo.androidstudy_coinhelper.BaseUtil
+package com.example.yeongpyo.androidStudyCoinHelper.BaseUtil
 
 import android.support.v7.widget.RecyclerView
 
@@ -6,8 +6,9 @@ abstract class BaseRecyclerAdapter<ITEM : Any> : RecyclerView.Adapter<RecyclerVi
 
     var data = mutableListOf<ITEM>()
 
-    fun addData(vararg ItemData : ITEM) {
-        ItemData.forEach { data.add(it) }
+    fun addData(ItemData : List<ITEM>) {
+//        ItemData.forEach { data.add(it) }
+        data.addAll(ItemData)
         notifyDataSetChanged()
     }
 

@@ -18,7 +18,7 @@ interface APIinterface {
     }
 
     @GET("/trades")
-    fun getTrades(@Query("currency") coin: String): Observable<TredesData>
+    fun getTrades(@Query("currency") coin: String): Observable<TradesData>
 
 
     @GET("/orderbook")

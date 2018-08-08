@@ -1,4 +1,4 @@
-package com.example.yeongpyo.androidstudy_coinhelper.RxComm
+package com.example.yeongpyo.androidStudyCoinHelper.RxComm
 
 import com.example.coinapi.APIinterface
 import io.reactivex.Observable
@@ -7,9 +7,9 @@ import io.reactivex.schedulers.Schedulers
 
 class APICallRX(APIParsingName : String) {
 
-    val api = APIinterface.retrofit.create(APIinterface::class.java)
+    private val api = APIinterface.retrofit.create(APIinterface::class.java)
 
-    fun <T> Observable<T>.returnObservable() : Observable<T> = this.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    private fun <T> Observable<T>.returnObservable() : Observable<T> = this.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
     val tickerObservable = api.getTicker(APIParsingName).returnObservable()
 

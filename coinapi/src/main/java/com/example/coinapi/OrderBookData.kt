@@ -11,13 +11,13 @@ data class OrderBookData (
 data class AskData(
         val price: String,
         val qty: String
-) : APIDecimalSupport(){
-    fun getprice() = StringHighOrder(price, ::HighOrderComma)
+){
+    fun getprice() = price.comma()
 }
 
 data class BidData(
         val price: String,
         val qty: String
-): APIDecimalSupport(){
-    fun getprice() = StringHighOrder(price, ::HighOrderComma)
+){
+    fun getprice() = price.comma()
 }

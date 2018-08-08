@@ -1,8 +1,8 @@
-package com.example.yeongpyo.androidstudy_coinhelper
+package com.example.yeongpyo.androidStudyCoinHelper
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.example.yeongpyo.androidstudy_coinhelper.Adapter.CustomPagerAdater
+import com.example.yeongpyo.androidStudyCoinHelper.Adapter.CustomPagerAdater
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

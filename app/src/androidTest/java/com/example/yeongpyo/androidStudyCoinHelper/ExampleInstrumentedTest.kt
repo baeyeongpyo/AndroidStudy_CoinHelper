@@ -1,4 +1,4 @@
-package com.example.yeongpyo.androidstudy_coinhelper
+package com.example.yeongpyo.androidStudyCoinHelper
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

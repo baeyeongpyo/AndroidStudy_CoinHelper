@@ -1,10 +1,10 @@
-package com.example.yeongpyo.androidstudy_coinhelper
+package com.example.yeongpyo.androidStudyCoinHelper
 
 import com.example.coinapi.CoinDB
 import com.example.coinapi.OrderBookData
 import com.example.coinapi.TickerData
-import com.example.coinapi.TredesData
-import com.example.yeongpyo.androidstudy_coinhelper.RxComm.APICallRX
+import com.example.coinapi.TradesData
+import com.example.yeongpyo.androidStudyCoinHelper.RxComm.APICallRX
 import io.reactivex.internal.operators.observable.ObservableInterval
 import java.util.concurrent.TimeUnit
 
@@ -26,14 +26,14 @@ class CoinPresenter(val view :CoinContract.View) : CoinContract.Presenter {
 
     private fun getOrderBook() = observableSupport.orderBookObservable.subscribe(getOrderBookData, getFail)
 
-    private fun getTrades() = observableSupport.tradesObservable.subscribe(getTredesData, getFail)
+    private fun getTrades() = observableSupport.tradesObservable.subscribe(getTradesData, getFail)
 
     private fun getTicker() = observableSupport.tickerObservable.subscribe(getTickerData, getFail)
 
 
     private val getFail : (Throwable) -> Unit ={}
-    private val getTredesData : (TredesData) -> Unit = {view.setTredes(it.completeOrders.toTypedArray()) }
-    private val getOrderBookData : (OrderBookData) -> Unit = { view.run { setAsk(it.ask.toTypedArray()); setBid(it.bid.toTypedArray()) }}
+    private val getTradesData : (TradesData) -> Unit = {view.setTrades(it.completeOrders) }
+    private val getOrderBookData : (OrderBookData) -> Unit = { view.run { setAsk(it.ask); setBid(it.bid) }}
     private val getTickerData : (TickerData) -> Unit = { view.setTicker(it) }
 
     /*
@@ -41,8 +41,8 @@ class CoinPresenter(val view :CoinContract.View) : CoinContract.Presenter {
         "ERR Print".LogPrint()
     }
 
-    fun getTredesData(data: TredesData) {
-        view.setTredes(data.completeOrders.toTypedArray())
+    fun getTradesData(data: TradesData) {
+        view.setTrades(data.completeOrders.toTypedArray())
     }
 
     fun getOrderBookData(data: OrderBookData) {

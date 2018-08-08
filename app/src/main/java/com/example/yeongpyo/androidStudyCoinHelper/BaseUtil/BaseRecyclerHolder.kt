@@ -1,4 +1,4 @@
-package com.example.yeongpyo.androidstudy_coinhelper.BaseUtil
+package com.example.yeongpyo.androidStudyCoinHelper.BaseUtil
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
