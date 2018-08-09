@@ -1,0 +1,53 @@
+import kotlin.KotlinVersion
+
+ext {
+    SupportName = 'com.android.support'
+    SupportVersion = '27.1.1'
+
+    RxjavaName = 'io.reactivex.rxjava2'
+
+    RetrofitName = 'com.squareup.retrofit2'
+    RetrofitVersion = '2.4.0'
+
+    KotilnVersion = '1.2.31'
+
+    gradle_Version = '3.1.3'
+
+}
+
+ext.dependencies = [
+
+        classPath: [
+                androidGradle: "com.android.tools.build:gradle:$gradle_Version",
+                Kotlin       : "org.jetbrains.kotlin:kotlin-gradle-plugin:$KotilnVersion"
+        ],
+
+        library  :
+                [
+                        SupportAppcompat : "$SupportName:appcompat-v7:$SupportVersion",
+                        SupportV4        : "$SupportName:support-v4:$SupportVersion",
+                        RecyclerView     : "$SupportName:recyclerview-v7:$SupportVersion",
+                        CardView         : "$SupportName:cardview-v7:$SupportVersion",
+                        ConstraintLayout : "${SupportName}.constraint:constraint-layout:1.1.2",
+
+                        RxKotlin         : "$RxjavaName:rxkotlin:2.2.0",
+                        RxAndroid        : "$RxjavaName:rxandroid:2.0.2",
+
+                        Retrofit         : "$RetrofitName:retrofit:$RetrofitVersion",
+                        RetrofitGson     : "$RetrofitName:converter-gson:$RetrofitVersion",
+                        RetrofitConverter: "$RetrofitName:retrofit-converters:$RetrofitVersion",
+                        RetrofitAdapter  : "$RetrofitName:adapter-rxjava2:$RetrofitVersion",
+
+                        KotlinLib        : "org.jetbrains.kotlin:kotlin-stdlib:$KotilnVersion",
+
+                        DataBinding      : "com.android.databinding:compiler:$gradle_Version"
+                ],
+
+        test     :
+                [
+                        Junit       : "junit:junit:4.12",
+                        TestRunner  : "${SupportName}.test:runner:1.0.2",
+                        TestEspresso: "${SupportName}.test.espresso:espresso-core:3.0.2",
+                ]
+
+]

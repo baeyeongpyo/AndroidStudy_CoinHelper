@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply from : 'dependencies-coinapi.gradle'
 
 android {
     compileSdkVersion 27
@@ -20,18 +21,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-}
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.squareup.retrofit2:retrofit:$Retrofit"
-    implementation "com.squareup.retrofit2:converter-gson:$Retrofit"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-   // implementation "com.squareup.retrofit2:retrofit-converters:$Retrofit"
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
 }
 repositories {

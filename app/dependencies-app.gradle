@@ -1,0 +1,32 @@
+repositories {
+    jcenter()
+}
+
+android.dataBinding.enabled true
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':coinapi')
+
+
+    implementation rootProject.ext.dependencies.library.SupportAppcompat
+    implementation rootProject.ext.dependencies.library.SupportV4
+    implementation rootProject.ext.dependencies.library.RecyclerView
+    implementation rootProject.ext.dependencies.library.CardView
+    implementation rootProject.ext.dependencies.library.ConstraintLayout
+
+    implementation rootProject.ext.dependencies.library.RxKotlin
+    implementation rootProject.ext.dependencies.library.RxAndroid
+
+    implementation rootProject.ext.dependencies.library.Retrofit
+    implementation rootProject.ext.dependencies.library.RetrofitGson
+    implementation rootProject.ext.dependencies.library.RetrofitConverter
+    implementation rootProject.ext.dependencies.library.RetrofitAdapter
+
+    implementation rootProject.ext.dependencies.library.KotlinLib
+    kapt rootProject.ext.dependencies.library.DataBinding
+
+    testImplementation rootProject.ext.dependencies.test.Junit
+    androidTestImplementation rootProject.ext.dependencies.test.TestRunner
+    androidTestImplementation rootProject.ext.dependencies.test.TestEspresso
+}

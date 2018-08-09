@@ -1,0 +1,16 @@
+repositories {
+    jcenter()
+}
+
+dependencies{
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation rootProject.ext.dependencies.library.Retrofit
+    implementation rootProject.ext.dependencies.library.RetrofitGson
+    implementation rootProject.ext.dependencies.library.RetrofitConverter
+    implementation rootProject.ext.dependencies.library.RetrofitAdapter
+
+    implementation rootProject.ext.dependencies.library.RxKotlin
+    implementation rootProject.ext.dependencies.library.RxAndroid
+}
