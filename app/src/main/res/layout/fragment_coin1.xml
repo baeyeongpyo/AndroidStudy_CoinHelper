@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout >
     <data>
-        <variable name="includeData" type="com.example.coinapi.TickerData"/>
+        <variable name="includeData" type="com.example.yeongpyo.androidStudyCoinHelper.CoinViewModel"/>
     </data>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -33,6 +33,7 @@
         tools:listitem="@layout/item_data"
         tools:itemCount="15"
         android:background="#D9A098"
+        adapterItem="@{includeData.askList}"
         />
 
     <include
@@ -45,6 +46,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/Middle_Guide"
         app:layout_constraintHorizontal_weight="1"
+        app:includeDB="@{includeData}"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -60,6 +62,7 @@
         android:orientation="vertical"
         tools:listitem="@layout/item_subdata"
         tools:itemCount="15"
+        adapterItem="@{includeData.tradesList}"
         />
 
     <android.support.v7.widget.RecyclerView
@@ -77,6 +80,7 @@
         tools:listitem="@layout/item_data"
         tools:itemCount="15"
         android:background="#8DC3E8"
+        adapterItem="@{includeData.bidList}"
         />
 
 

@@ -1,5 +1,3 @@
-import kotlin.KotlinVersion
-
 ext {
     SupportName = 'com.android.support'
     SupportVersion = '27.1.1'

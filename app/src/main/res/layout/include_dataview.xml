@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="includeDB" type="com.example.yeongpyo.androidStudyCoinHelper.CoinViewModel"/>
+    </data>
 <ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <LinearLayout
@@ -18,7 +21,8 @@
         android:id="@+id/CurrentPrince"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"/>
+        android:layout_gravity="right"
+        android:text="@{includeDB.currentPrice}"/>
 
     <TextView
         android:text="@string/PreviousDay"
@@ -30,7 +34,8 @@
         android:id="@+id/PreviousDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"/>
+        android:layout_gravity="right"
+        android:text="@{includeDB.previousDay}"/>
 
     <TextView
         android:text="@string/DayBefore"
@@ -42,7 +47,8 @@
         android:id="@+id/DayBefore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right" />
+        android:layout_gravity="right"
+        android:text="@{includeDB.dayBefore}" />
 
     <TextView
         android:text="@string/HighPrice"
@@ -54,7 +60,8 @@
         android:id="@+id/HighPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"/>
+        android:layout_gravity="right"
+        android:text="@{includeDB.highPrice}"/>
 
     <TextView
         android:text="@string/LowPrice"
@@ -66,7 +73,8 @@
         android:id="@+id/LowPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"/>
+        android:layout_gravity="right"
+        android:text="@{includeDB.lowPrice}"/>
 
     <TextView
         android:text="@string/Volume"
@@ -78,7 +86,10 @@
         android:id="@+id/Volume"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"/>
+        android:layout_gravity="right"
+        android:text="@{includeDB.volumeData}"/>
 
 </LinearLayout>
 </ScrollView>
+
+</layout>

@@ -7,7 +7,6 @@ abstract class BaseRecyclerAdapter<ITEM : Any> : RecyclerView.Adapter<RecyclerVi
     var data = mutableListOf<ITEM>()
 
     fun addData(ItemData : List<ITEM>) {
-//        ItemData.forEach { data.add(it) }
         data.addAll(ItemData)
         notifyDataSetChanged()
     }
